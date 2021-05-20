@@ -5,9 +5,9 @@ The easiest way I can think of solving this is using the tables included in GitH
 
 To your specific example it would look something like this:
 
-Solarized dark             |  Solarized Ocean
+Input Image                |  Output Image
 :-------------------------:|:-------------------------:
-![]<img src="test_images_output/solidWhiteCurve.jpg"/>  | ![]<img src="test_images_output/solidWhiteCurve.jpg"/>
+<img src="test_images/solidWhiteCurve.jpg"/>  | <img src="test_images_output/solidWhiteCurve.jpg"/>
 
 
 The Goal
