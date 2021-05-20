@@ -15,16 +15,21 @@ The Pipeline
 Several pipelines were used to approach this problem. The first approach was to start by selecting all the pixels above a certain brightness since lane marks are usually brighter than other components on a road image. This caused some issues while detecting non-white lane marking so this method was dropped. Here is the final pipeline used:
 1. Convert the image to grayscale.
 <img src="pipeline/gray.JPG" width="480" alt="Gray Image" />
+
 2. Slightly blur the image.
+
 3. Perform edge detection.
 <img src="pipeline/canny.JPG" width="480" alt="Canny Image" />
+
 4. Only keep the area of interest.
 <img src="pipeline/mask.JPG" width="480" alt="Mask Image" />
+
 5. Using hough lines and np.polyfit(), determine the best line to represent the left and right lane.
+
 6. Tune the parameters until satisfied.
+
 7. Blend the initial image and the lines together.
 <img src="pipeline/final.JPG" width="480" alt="Final Image" />
-
 
 Shortcomings
 ---
