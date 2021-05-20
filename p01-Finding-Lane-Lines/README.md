@@ -4,8 +4,7 @@
 
 The Goal
 ---
-When we drive, we use our eyes to decide where to go.  The lines on the road that show us where the lanes are act as our constant reference for where to steer the vehicle.  
-The goal of this project is to automatically detect lane lines a road.
+The goal of this project is to automatically detect lane lines on a road.
 
 Input Image                |  Output Image
 :-------------------------:|:-------------------------:
