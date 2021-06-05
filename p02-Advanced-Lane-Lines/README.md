@@ -10,7 +10,7 @@ The goal of this project is to automatically detect lane lines on a road, calcul
 
 Input Image                |  Output Image
 :-------------------------:|:-------------------------:
-<img src="test_images/straight_lines1.jpg"/>  | <img src="output_images/straight_lines1.jpg.jpg"/>
+<img src="test_images/straight_lines1.jpg"/>  | <img src="output_images/straight_lines1.jpg"/>
 
 The Pipeline
 ---
