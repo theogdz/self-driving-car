@@ -19,9 +19,11 @@ The Pipeline
 5. Detect lane pixels and fit to find the lane boundary. 
 6. Determine the curvature of the lane and vehicle position with respect to center. <img src="readMe_images/5&6.png"/>
 7. Warp the detected lane boundaries back onto the original image. 
+   
    <img src="readMe_images/7.png"/>
 8. Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position. <img src="readMe_images/8.jpg"/>
 9. Create a pipeline for videos. 
+  
   <img src="output_images/gif-output.gif"/>
 
 Shortcomings
