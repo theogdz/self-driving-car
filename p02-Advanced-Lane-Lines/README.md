@@ -21,7 +21,7 @@ The Pipeline
 7. Warp the detected lane boundaries back onto the original image. 
    
    <img src="readMe_images/7.png"/>
-8. Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position. <img src="readMe_images/8.jpg"/>
+8. Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position. <img src="output_images/test4.jpg"/>
 9. Create a pipeline for videos. 
   
   <img src="output_images/gif-output.gif"/>
