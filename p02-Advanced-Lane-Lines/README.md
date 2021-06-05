@@ -14,24 +14,14 @@ Input Image                |  Output Image
 
 The Pipeline
 ---
-Several pipelines were used to approach this problem. The first approach was to start by selecting all the pixels above a certain brightness since lane marks are usually brighter than other components on a road image. This caused some issues while detecting non-white lane marking so this method was dropped. Here is the final pipeline used:
-1. Convert the image to grayscale.
-<img src="pipeline/gray.JPG" width="480" alt="Gray Image" />
-
-2. Slightly blur the image.
-
-3. Perform edge detection.
-<img src="pipeline/canny.JPG" width="480" alt="Canny Image" />
-
-4. Only keep the area of interest.
-<img src="pipeline/mask.JPG" width="480" alt="Mask Image" />
-
-5. Using hough lines and np.polyfit(), determine the best line to represent the left and right lane.
-
-6. Tune the parameters until satisfied.
-
-7. Blend the initial image and the lines together.
-<img src="pipeline/final.JPG" width="480" alt="Final Image" />
+1. Compute the camera calibration matrix and distortion coefficients given a set of chessboard images. <img src="readMe_images/1.png"/>
+2. Apply a distortion correction to raw images. <img src="readMe_images/2.png"/>
+3. Use color transforms, gradients, etc., to create a thresholded binary image. <img src="readMe_images/3.png"/>
+4. Apply a perspective transform to rectify binary image ("birds-eye view"). <img src="readMe_images/4.png"/>
+5. Detect lane pixels and fit to find the lane boundary. <img src="readMe_images/5.png"/>
+6. Determine the curvature of the lane and vehicle position with respect to center. 
+7. Warp the detected lane boundaries back onto the original image. <img src="readMe_images/6&7.png"/>
+8. Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position. <img src="readMe_images/8.jpg"/>
 
 Shortcomings
 ---
