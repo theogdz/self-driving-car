@@ -1,39 +1,43 @@
-## Advanced Lane Finding
+# **Advanced Finding Lane Lines on the Road** 
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
-![Lanes Image](./examples/example_output.jpg)
 
-In this project, your goal is to write a software pipeline to identify the lane boundaries in a video, but the main output or product we want you to create is a detailed writeup of the project.  Check out the [writeup template](https://github.com/udacity/CarND-Advanced-Lane-Lines/blob/master/writeup_template.md) for this project and use it as a starting point for creating your own writeup.  
 
-Creating a great writeup:
+The Goal
 ---
-A great writeup should include the rubric points as well as your description of how you addressed each point.  You should include a detailed description of the code used in each step (with line-number references and code snippets where necessary), and links to other supporting documents or external references.  You should include images in your writeup to demonstrate how your code works with examples.  
+The goal of this project is to automatically detect lane lines on a road, calculate the curvature and the position of the vehicle with respect to the lane
 
-All that said, please be concise!  We're not looking for you to write a book here, just a brief description of how you passed each rubric point, and references to the relevant code :). 
+<img src="output_images/gif-output.gif"/>
 
-You're not required to use markdown for your writeup.  If you use another method please just submit a pdf of your writeup.
+Input Image                |  Output Image
+:-------------------------:|:-------------------------:
+<img src="test_images/straight_lines1.jpg"/>  | <img src="output_images/straight_lines1.jpg.jpg"/>
 
-The Project
+The Pipeline
 ---
+Several pipelines were used to approach this problem. The first approach was to start by selecting all the pixels above a certain brightness since lane marks are usually brighter than other components on a road image. This caused some issues while detecting non-white lane marking so this method was dropped. Here is the final pipeline used:
+1. Convert the image to grayscale.
+<img src="pipeline/gray.JPG" width="480" alt="Gray Image" />
 
-The goals / steps of this project are the following:
+2. Slightly blur the image.
 
-* Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.
-* Apply a distortion correction to raw images.
-* Use color transforms, gradients, etc., to create a thresholded binary image.
-* Apply a perspective transform to rectify binary image ("birds-eye view").
-* Detect lane pixels and fit to find the lane boundary.
-* Determine the curvature of the lane and vehicle position with respect to center.
-* Warp the detected lane boundaries back onto the original image.
-* Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
+3. Perform edge detection.
+<img src="pipeline/canny.JPG" width="480" alt="Canny Image" />
 
-The images for camera calibration are stored in the folder called `camera_cal`.  The images in `test_images` are for testing your pipeline on single frames.  If you want to extract more test images from the videos, you can simply use an image writing method like `cv2.imwrite()`, i.e., you can read the video in frame by frame as usual, and for frames you want to save for later you can write to an image file.  
+4. Only keep the area of interest.
+<img src="pipeline/mask.JPG" width="480" alt="Mask Image" />
 
-To help the reviewer examine your work, please save examples of the output from each stage of your pipeline in the folder called `output_images`, and include a description in your writeup for the project of what each image shows.    The video called `project_video.mp4` is the video your pipeline should work well on.  
+5. Using hough lines and np.polyfit(), determine the best line to represent the left and right lane.
 
-The `challenge_video.mp4` video is an extra (and optional) challenge for you if you want to test your pipeline under somewhat trickier conditions.  The `harder_challenge.mp4` video is another optional challenge and is brutal!
+6. Tune the parameters until satisfied.
 
-If you're feeling ambitious (again, totally optional though), don't stop there!  We encourage you to go out and take video of your own, calibrate your camera and show us how you would implement this project from scratch!
+7. Blend the initial image and the lines together.
+<img src="pipeline/final.JPG" width="480" alt="Final Image" />
 
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
+Shortcomings
+---
+The algortithm used works great for this camera angle. Changing the camera's position will require more parameters tuning. This proves that the algorithm does not generalize well.
 
+Possible Improvements
+---
+1. Modify the pipeline to generalize for all camera angle. The performance greatly increased when a line with slope > 0.5 was declared as left and < 0.5 as right lane. Modify the slope limit could help this.
+2. Averaging the lines between frames in a video could help smoothing detection during the video.
