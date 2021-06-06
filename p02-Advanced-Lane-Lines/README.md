@@ -15,10 +15,12 @@ The Pipeline
 1. Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.
 
 camera_calibrate() was created to populate object points and image points, these paramters are essential to compute the matrix and distorion matrix. 
+
 <img src="readMe_images/1.png"/>
 2. Apply a distortion correction to raw images. 
 
 undistort_img() takes as argument the raw picture, the object and image points calculated in step 1 to calculate the needed matrices. Then using the funvtion cv2.undistort() , the image was undistorted.
+
 <img src="readMe_images/2.png"/>
 3. Use color transforms, gradients, etc., to create a thresholded binary image. 
 
@@ -27,6 +29,7 @@ a. A first image representing the sobel along the x direction was produced. The 
 b. The sobels of the x and y of the raw image were calculated and their magnitudes were recorded. The pixles in a certain range was kept.
 c. The raw image was converted to HSL and only the Saturation channel was kept. The pixles in a certain range was kept.
 d. The three images created above were combined to create the image below:
+
 <img src="readMe_images/3.png"/>
 4. Apply a perspective transform to rectify binary image ("birds-eye view"). 
 
@@ -40,19 +43,23 @@ The method perspective_trans() was used to transform the perspective. The getPer
 | 734, 470      | 960, 0        |
 
 The image below shows the restult of this step.
+
 <img src="readMe_images/4.png"/>
 5. Detect lane pixels and fit to find the lane boundary. 
 6. Determine the curvature of the lane and vehicle position with respect to center. 
 
 To perform step 5 & 6, the function curvature_eval() was created. This function creates a histogram to detect the left and right lanes. and then draws window which can be seen in the image below. Then, using np.polyfit, we fit a second order polynomial to each lane. The polynomial is then converted to meters per pixel which can be used to calculate the curvature of the lines. Then, assuming the the camera is mounted at the center of the car, the position of the vehicle with respect to the lanes is calculated.
+
 <img src="readMe_images/5&6.png"/>
 7. Warp the detected lane boundaries back onto the original image. 
 
 The map_color() function is used to display the path between both lanes detected. 
+
 <img src="readMe_images/7.png"/>
 8. Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
 
 The text containing the desired information is added by the map_curv function(). It uses putText() to display the messages.
+
 <img src="output_images/test4.jpg"/>
 9. Create a pipeline for videos. 
 
