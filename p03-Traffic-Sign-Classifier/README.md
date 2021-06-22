@@ -69,7 +69,8 @@ I tuned the parameters and kept track of the combinations which performed the be
 * EPOCHS: 20
 
 The graph of epochs vs loss and epochs vs accuracy were plotted for validation and training. This is to check if the model is overfitting.
-<img src="data/acc.png"/> 
+
+<img src="data/accuracy.png"/> 
 
 <img src="data/loss.png"/> 
 
@@ -86,6 +87,7 @@ The lower accuracy on the testing set might be due to the restricted amount of d
 ### Test a Model on New Images
 
 The following images were used to evaluate the model:
+
 <img src="data/test.PNG"/>
 
 These 5 images were chosen because they each have a different combination of shape, color and symbol.
