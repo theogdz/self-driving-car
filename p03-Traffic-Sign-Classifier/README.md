@@ -22,7 +22,7 @@ signs data set:
 * Number of classes = 43
 
 The notebook contains a cell showing all the classes and their respective sign. Here is a preview:
-<img src="data/train.png"/>
+<img src="data/train.PNG"/>
 
 
 Here is an exploratory visualization of the data set. It is a bar chart showing the class distribution for training and validation set combined before data augmentation.
@@ -37,7 +37,7 @@ The first step was to balance the dataset. This ensures that each class has an a
 
 The dataset was then normalized so that every value is between 0 and 1. The purpose of normalizing is to make every feature of equal importance while training. The notebook contains a cell showing each class normalized. Here is a preview:
 
-<img src="data/norm.png"/> 
+<img src="data/norm.PNG"/> 
 
 
 My final model consisted of the following layers:
@@ -86,7 +86,7 @@ The lower accuracy on the testing set might be due to the restricted amount of d
 ### Test a Model on New Images
 
 The following images were used to evaluate the model:
-<img src="data/test.png"/>
+<img src="data/test.PNG"/>
 
 These 5 images were chosen because they each have a different combination of shape, color and symbol.
 
