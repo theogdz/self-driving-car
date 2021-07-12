@@ -11,22 +11,11 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 
-lines = []
-with open('.\data\driving_log.csv') as csvfile:
-    reader = csv.reader(csvfile)
-    for line in reader:
-        lines.append(line)
-
 samples = []
 with open('.\data\driving_log.csv') as csvfile:
     reader = csv.reader(csvfile)
     for line in reader:
         samples.append(line)
-
-#samples = samples[1:], optional in case there is header in csv data
-
-print('Filenames loaded...')
-
 
 image_datapath = "data/"
 
