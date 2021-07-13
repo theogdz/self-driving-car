@@ -33,16 +33,18 @@ The model.py file contains the code for training and saving the convolution neur
 
 ### Model Architecture and Training Strategy
 
-#### 1. An appropriate model architecture has been employed
+#### 1. Model Architecture
 
 Several models were trained to tackle this task. Finally, I ended up borrowing the model from the [NVIDIA paper](https://arxiv.org/pdf/1604.07316v1.pdf) in which they map raw pixels from a single front-facing camera directly to steering commands. The structure can be seen between line 58-73 of model.py. The functional API was used to build the model to accomodate for more complex tasks if needed. It is worth noting that my architecture is slightly different than the NVIDIA's paper because our input sizes differ.
 
 Below is a screenshot of the model architecture and the summary of the model.
 
+<img src="img/architecture.PNG"/> <img src="img/summary.PNG"/>
+
 The model includes RELU and ELU layers to introduce nonlinearity, and the data is normalized in the model using a Keras lambda layer (model.py line 59).
 
 
-#### 2. Attempts to reduce overfitting in the model
+#### 2. Preventing overfitting
 
 The model contains dropout layers in order to reduce overfitting (model.py lines 67,70). 
 
@@ -54,6 +56,10 @@ Several models were trained and the one which had the lowest MSE on the validati
 #### 4. Appropriate training data
 
 Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road. I used all three camera angle (left, middle, right) to train the model. Since the simulation only used the middle camera, a correction angle was used for the left and right camera to make them act as the middle camera. Furthermore, to decrease noise which was not relevant to the track (i.e the sky), the training images were cropped. The new dimensions are the images fed to the model were (65,320,3). The data was split into training/validation sets in a ration 8:2. Now that we tripled the amount of by using the 3 cameras (56,817 images) and reduced noise by elimnating the sky, the model can be refined to enhance the performance of the car.
+
+<img src="img/original.jpg"/> <img src="img/cropped.jpg"/>
+
+Above, we can see how the images were cropped to remove noise.
 
 ### Model Architecture and Training Strategy
 
