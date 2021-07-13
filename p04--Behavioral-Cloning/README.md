@@ -76,3 +76,14 @@ At the end of the process, the vehicle is able to drive autonomously around the 
 As seen in the video below, the vehicle successfully drives around the track. The speed of car was also increased from 9 mph to 20 mph to make it more challenging. Note that the image input in drive.py (line 64) had to be adjusted to match the input of the model. In the second part of the video, we can see the vehicle accomplish challenging turns in the second track.
 
 [![IMAGE ALT TEXT](img/yt.PNG)](https://www.youtube.com/watch?v=AcHAXkKQq1g)
+
+
+#### 2. Further Improvement
+
+While the model excels on track 1, it can encounter some difficulties on the second track. To remediate to this problem, these steps could be taken:
+
+1. Increase the data recorded from track 2. Currently, only one lap of data was collected from track 2.
+2. Build a deeper model. 
+3. Use model transfer as the backbone of the architecture.
+
+Overall, this project taught a lot about the power of behavioral cloning and computer vision.
