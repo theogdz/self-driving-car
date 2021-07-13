@@ -78,7 +78,7 @@ As seen in the video below, the vehicle successfully drives around the track. Th
 [![IMAGE ALT TEXT](img/yt.PNG)](https://www.youtube.com/watch?v=AcHAXkKQq1g)
 
 
-#### 2. Further Improvement
+#### 3. Further Improvement
 
 While the model excels on track 1, it can encounter some difficulties on the second track. To remediate to this problem, these steps could be taken:
 
