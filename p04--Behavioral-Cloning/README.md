@@ -1,5 +1,7 @@
 **Behavioral Cloning Project**
 
+<img src="img/sdc.gif"/>
+
 The steps of this project are the following:
 * Use the simulator to collect data of good driving behavior
 * Build, a convolution neural network in Keras that predicts steering angles from images
@@ -73,4 +75,4 @@ At the end of the process, the vehicle is able to drive autonomously around the 
 
 As seen in the video below, the vehicle successfully drives around the track. The speed of car was also increased from 9 mph to 20 mph to make it more challenging. Note that the image input in drive.py (line 64) had to be adjusted to match the input of the model. In the second part of the video, we can see the vehicle accomplish challenging turns in the second track.
 
-[![IMAGE ALT TEXT](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE "Video Title")
+[![IMAGE ALT TEXT](img/yt.PNG)](https://www.youtube.com/watch?v=AcHAXkKQq1g)
