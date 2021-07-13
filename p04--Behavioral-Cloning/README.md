@@ -69,7 +69,7 @@ At first, I built a simple model with only one Convolution Neuron to ensure the 
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
-#### 3. Testing the model
+#### 2. Testing the model
 
 As seen in the video below, the vehicle successfully drives around the track. The speed of car was also increased from 9 mph to 20 mph to make it more challenging. Note that the image input in drive.py (line 64) had to be adjusted to match the input of the model. In the second part of the video, we can see the vehicle accomplish challenging turns in the second track.
 
