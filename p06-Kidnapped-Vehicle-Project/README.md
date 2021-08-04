@@ -1,143 +1,90 @@
-# Overview
-This repository contains all the code needed to complete the final project for the Localization course in Udacity's Self-Driving Car Nanodegree.
+# Project 6 - Kidnapped Vehicle - Particle Filter Localization
 
-#### Submission
-All you will need to submit is your `src` directory. You should probably do a `git pull` before submitting to verify that your project passes the most up-to-date version of the grading code (there are some parameters in `src/main.cpp` which govern the requirements on accuracy and run time).
-
-## Project Introduction
-Your robot has been kidnapped and transported to a new location! Luckily it has a map of this location, a (noisy) GPS estimate of its initial location, and lots of (noisy) sensor and control data.
-
-In this project you will implement a 2 dimensional particle filter in C++. Your particle filter will be given a map and some initial localization information (analogous to what a GPS would provide). At each time step your filter will also get observation and control data.
-
-## Running the Code
-This project involves the Term 2 Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases)
-
-This repository includes two files that can be used to set up and install uWebSocketIO for either Linux or Mac systems. For windows you can use either Docker, VMware, or even Windows 10 Bash on Ubuntu to install uWebSocketIO.
-
-Once the install for uWebSocketIO is complete, the main program can be built and ran by doing the following from the project top directory.
-
-1. mkdir build
-2. cd build
-3. cmake ..
-4. make
-5. ./particle_filter
-
-Alternatively some scripts have been included to streamline this process, these can be leveraged by executing the following in the top directory of the project:
-
-1. ./clean.sh
-2. ./build.sh
-3. ./run.sh
-
-Tips for setting up your environment can be found [here](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/23d376c7-0195-4276-bdf0-e02f1f3c665d)
-
-Note that the programs that need to be written to accomplish the project are src/particle_filter.cpp, and particle_filter.h
-
-The program main.cpp has already been filled out, but feel free to modify it.
-
-Here is the main protocol that main.cpp uses for uWebSocketIO in communicating with the simulator.
-
-INPUT: values provided by the simulator to the c++ program
-
-// sense noisy position data from the simulator
-
-["sense_x"]
-
-["sense_y"]
-
-["sense_theta"]
-
-// get the previous velocity and yaw rate to predict the particle's transitioned state
-
-["previous_velocity"]
-
-["previous_yawrate"]
-
-// receive noisy observation data from the simulator, in a respective list of x/y values
-
-["sense_observations_x"]
-
-["sense_observations_y"]
+[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
 
-OUTPUT: values provided by the c++ program to the simulator
+Overview
+---
 
-// best particle values used for calculating the error evaluation
+In this project, we will implement a particle filter to localize a vehicle given its intial location (GPS) and distance from known landmarks on a map (measurement made by LIDAR). 
 
-["best_particle_x"]
+<p align="center">
+<img width="1000" src="media/proj6.gif"
+</p>  
+  
+The 2D particle filter will be implemented in C++. The rubric to this project can be found [here](https://review.udacity.com/#!/rubrics/747/view). 
 
-["best_particle_y"]
+  
+File Structure
+---
 
-["best_particle_theta"]
+* `main.cpp` -  This file runs the particle filter, measures the runtime calculate the weighted error at each timestep.  
+    - Set the number of particles `num_particles` to draw.  
+    - Set the control measurement uncertainty `signma_pos`  
+    - Set the landmark measurment uncertainty `sigma_landmark`  
+    - Reads in map data  
+    - Reads in control data and;  
+    - Reads in observation data for each timestep.  
 
-//Optional message data used for debugging particle's sensing and associations
+* `particle_filter.cpp` 
+    - `init` function takes GPS coordinates as input, intial heading estimate and an array of measurement uncertainties. To initialize all the particles, we distribute them using Gaussian distribution. Each particle has an initial weight of 1.
+    
+    - `prediction` takes as input the time interval since the last update, the position of the vehicle, the velocity, and the yaw rate. The function then updates the particle position estimates and adds Gaussian noise to account for uncertainty in measurements.
+    
+    - `updateWeights` function takes as input the range of the sensor, the landmak measurement uncertainties, and the map landmarks. It then modifies the weight of the particles to match the likelihood of the vehicle being at this place given the car prediction.
+      
+    
+    - `resample` function, use the weights of the particles in the particle filter to update the particles to a Bayesian posterior distribution.  
 
-// for respective (x,y) sensed positions ID label
+    - `weighted_mean_error` evalulates the performance of the particle filter by calculating the weighted error.  
+Algorithm
+---
 
-["best_particle_associations"]
+<p align="center">
+<img width="1000" src="media/algo.PNG"
+</p>
 
-// for respective (x,y) sensed positions
+**Implementation of Particle Filter**
 
-["best_particle_sense_x"] <= list of sensed x positions
+**Initialization:**  
 
-["best_particle_sense_y"] <= list of sensed y positions
+Initializes particle filter to Gaussian distribution around first position and all the weights to 1.  The particles are initialized with a GPS position and heading. Every feasible position on the grid is called a particle and it represents a likely position of the vehicle inside the GPS location. 
 
+**Prediction:**  
+  
+Each particle represents a prior belief about the location and orientation of the vehicle. They are derived from a single, course prior provided by a GPS measurement. Once initialized, we have to improve the belief by sensing the environement and this is done by the prediction step. The formula used to calculate the location of each particle at the next step can be seen below:
+    
+<p align="center">
+<img width="1000" src="media/yaw_not_zero.PNG"
+</p>  
 
-Your job is to build out the methods in `particle_filter.cpp` until the simulator output says:
+**Update Weights:**  
+    
+The LIDAR sensor receives the measurements as a list of x, y coordinates and sensor noise. We need to transform the coordinate from the car's system to the map to calculate the paticles' weight. The homogenous transformation matrix used to do so can be found below:
 
-```
-Success! Your particle filter passed!
-```
+<p align="center">
+<img width="1000" src="media/transofrm.PNG"
+</p>  
+    
+Each measurement from the LIDAR's point cloud is associated to a landmard using nearest neighbor. The particle with the smallest deviation from a landmark's location is associated to the landmark. The diviation between the observed landmark'd location and the true location results in a multivariate Gaussian probability. For each observation, the distribution is calculated and all resulting probabilites are multiplied, resulting in the particle weight. The goal is to have particles with highest weight to survive.
+                    
 
-# Implementing the Particle Filter
-The directory structure of this repository is as follows:
-
-```
-root
-|   build.sh
-|   clean.sh
-|   CMakeLists.txt
-|   README.md
-|   run.sh
-|
-|___data
-|   |   
-|   |   map_data.txt
-|   
-|   
-|___src
-    |   helper_functions.h
-    |   main.cpp
-    |   map.h
-    |   particle_filter.cpp
-    |   particle_filter.h
-```
-
-The only file you should modify is `particle_filter.cpp` in the `src` directory. The file contains the scaffolding of a `ParticleFilter` class and some associated methods. Read through the code, the comments, and the header file `particle_filter.h` to get a sense for what this code is expected to do.
-
-If you are interested, take a look at `src/main.cpp` as well. This file contains the code that will actually be running your particle filter and calling the associated methods.
-
-## Inputs to the Particle Filter
-You can find the inputs to the particle filter in the `data` directory.
-
-#### The Map*
-`map_data.txt` includes the position of landmarks (in meters) on an arbitrary Cartesian coordinate system. Each row has three columns
-1. x position
-2. y position
-3. landmark id
-
-### All other data the simulator provides, such as observations and controls.
-
-> * Map data provided by 3D Mapping Solutions GmbH.
-
-## Success Criteria
-If your particle filter passes the current grading code in the simulator (you can make sure you have the current version at any time by doing a `git pull`), then you should pass!
-
-The things the grading code is looking for are:
+<p align="center">
+<img width="1000" src="media/equation.PNG"
+</p>  
 
 
-1. **Accuracy**: your particle filter should localize vehicle position and yaw to within the values specified in the parameters `max_translation_error` and `max_yaw_error` in `src/main.cpp`.
+**Resampling:**  
 
-2. **Performance**: your particle filter should complete execution within the time of 100 seconds.
+Resampling involves keeping the particles with higher weights since they have higher posterior probability. This leads to more accurate new prior at each recursive step. The new priors are more reliable than the orignal priors, but slightly less reliable than the posteriors calculated, as uncertainty increases with movement. 
 
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
+
+Results
+---
+
+The particle filter implemented meets the rubric's requirement. It was able to localize the car accurately. A video demoing its performance can be found in the media folder.e  
+
+Remarks
+---
+ 
+This project was a hands on experience of simultaneous, localization, and mapping (SLAM) which is an essential section in the development of autonomous vehicles. 
