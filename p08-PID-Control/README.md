@@ -32,7 +32,7 @@ Comparing controllers
 The table below shows 3 different types of controllers.
 P controller                |  PD controller		| PID controller
 :-------------------------:|:--------------------------:|:--------------------------:
-<img src="media/p.gig"/>   | <img src="media/pd.gif"/>  | <img src="media/pid.gif"/>
+<img src="media/pcontroller_Trim.gif"/>   | <img src="media/pdcontroller_Trim.gif"/>  | <img src="media/pid_Trim.gif"/>
 
 As we can see, using only the P component results in a very unstable navigation. A pd controller is more stable but fails to correct the bias that causes the car to only drive on the right side of the track. A pid controller provides a smooth navigation alonf the middle of the track.
 
