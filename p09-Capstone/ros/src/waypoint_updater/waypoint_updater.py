@@ -40,11 +40,10 @@ class WaypointUpdater(object):
         rospy.Subscriber('/current_pose', PoseStamped, self.pose_cb) # current position of the vehicle to be used to locate waypoints ahead of car
         rospy.Subscriber('/base_waypoints', Lane, self.waypoints_cb) # list of waypoints ahead/behind of vehicle using waypoints_cb callback method, these do not change
         rospy.Subscriber('/traffic_waypoint', Int32, self.traffic_cb) # taking into account the locations to stop for red traffic lights
-        # rospy.Subscriber('/obstacle_waypoint', Waypoint, self.obstacle_cb) # taking into account the locations of obstacles
 
         self.final_waypoints_pub = rospy.Publisher('final_waypoints', Lane, queue_size=1)
         
-        self.loop() # this gives us control about the publishing frequency
+        self.loop()
     
     def loop(self):
         rate = rospy.Rate(30) # 30 Hertz, Autoware is running at 30Hz

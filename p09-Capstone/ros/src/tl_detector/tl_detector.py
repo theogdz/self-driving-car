@@ -133,24 +133,18 @@ class TLDetector(object):
         closest_light = None
         line_wp_idx = None
 
-        # List of positions that correspond to the line to stop in front of for a given intersection
         stop_line_positions = self.config['stop_line_positions']
         if(self.pose):
             car_wp_idx = self.get_closest_waypoint(self.pose.pose.position.x, self.pose.pose.position.y)
 
-        # Find the closest visible traffic light (if one exists)
-        # Iterate through all the intersections (8), no need for a KDTree, 
         diff = len(self.waypoints.waypoints)
         for i, light in enumerate(self.lights):
-            # Getting stop line waypoint index
             line = stop_line_positions[i]
             temp_wp_idx = self.get_closest_waypoint(line[0],line[1]) # x,y value from closest waypoint
 
-            # Find closest stop line waypoint index - Looking for the smallest difference
             d = temp_wp_idx - car_wp_idx
             if d >= 0 and d < diff:
                 diff = d
-                # Once known we can set our light to closest light
                 closest_light = light
                 line_wp_idx = temp_wp_idx
 
