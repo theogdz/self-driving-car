@@ -11,7 +11,7 @@ The goal of this project is to put in use all the knowledge learned in this cour
 The criteria found in the project [rubic](https://review.udacity.com/#!/rubrics/3058/view) is key to success. 
 
 <p align="center">
-<img width="1000" src="imgs/title.jpg"
+<img width="1000" src="imgs/title.jpeg"
 </p>  
 
 ## System Architecture Diagram
